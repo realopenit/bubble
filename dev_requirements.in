@@ -1,6 +1,6 @@
 behave
 PyHamcrest
-ipython
+# ipython
 httpie
 pip-tools
 flake8
