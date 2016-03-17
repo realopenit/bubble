@@ -7,11 +7,16 @@ Bubble
 
 .. image:: https://travis-ci.org/realopenit/bubble.png?branch=master
         :target: https://travis-ci.org/realopenit/bubble
+.. image:: http://realopenit-bubble.readthedocs.org/en/master/?badge=master
+
+
+
+
 
 Bubble: command line tool, for bubbling information between services
 
 * Free software: GPLV3 license
-* Documentation: https://bubble.readthedocs.org.
+* Documentation: http://realopenit-bubble.readthedocs.org
 
 Features
 --------
