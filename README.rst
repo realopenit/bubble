@@ -8,10 +8,6 @@ Bubble
 .. image:: https://travis-ci.org/realopenit/bubble.png?branch=master
         :target: https://travis-ci.org/realopenit/bubble
 
-.. image:: https://pypip.in/d/bubble/badge.png
-        :target: https://pypi.python.org/pypi/bubble
-
-
 Bubble: command line tool, for bubbling information between services
 
 * Free software: GPLV3 license
