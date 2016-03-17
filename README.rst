@@ -6,8 +6,12 @@ Bubble
     :target: http://badge.fury.io/py/bubble
 
 .. image:: https://travis-ci.org/realopenit/bubble.png?branch=master
-        :target: https://travis-ci.org/realopenit/bubble
-.. image:: http://realopenit-bubble.readthedocs.org/en/master/?badge=master
+    :target: https://travis-ci.org/realopenit/bubble
+    
+.. image:: https://readthedocs.org/projects/realopenit-bubble/badge/?version=master
+    :target: http://realopenit-bubble.readthedocs.org/en/latest/?badge=master
+    :alt: Documentation Status
+
 
 
 
