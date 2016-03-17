@@ -5,8 +5,8 @@ Bubble
 .. image:: https://badge.fury.io/py/bubble.png
     :target: http://badge.fury.io/py/bubble
 
-.. image:: https://travis-ci.org/e7dal/bubble.png?branch=master
-        :target: https://travis-ci.org/e7dal/bubble
+.. image:: https://travis-ci.org/realopenit/bubble.png?branch=master
+        :target: https://travis-ci.org/realopenit/bubble
 
 .. image:: https://pypip.in/d/bubble/badge.png
         :target: https://pypi.python.org/pypi/bubble
