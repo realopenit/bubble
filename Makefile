@@ -80,3 +80,7 @@ dist: clean docs
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
+
+install: clean
+	python setup.py bdist_wheel
+	pip install ./dist/bubble-*-py2.py3-none-any.whl
