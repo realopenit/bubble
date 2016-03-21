@@ -14,4 +14,4 @@ script:
   - pip install -r travis_requirements.txt
   - make dist
   - pip install ./dist/bubble-*-py2.py3-none-any.whl
-  - behave --format=progress
+  - behave
