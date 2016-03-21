@@ -1,0 +1,6 @@
+{
+  "name": "Bubble",
+  "tagline": "",
+  "body": "===============================\r\nBubble\r\n===============================\r\n\r\n.. image:: https://badge.fury.io/py/bubble.png\r\n    :target: http://badge.fury.io/py/bubble\r\n\r\n.. image:: https://travis-ci.org/realopenit/bubble.png?branch=master\r\n    :target: https://travis-ci.org/realopenit/bubble\r\n\r\n.. image:: https://readthedocs.org/projects/realopenit-bubble/badge/?version=master\r\n    :target: http://realopenit-bubble.readthedocs.org/en/latest/?badge=master\r\n    :alt: Documentation Status\r\n\r\n\r\n\r\n\r\n\r\n\r\nBubble: command line tool, for bubbling information between services\r\n\r\n* Free software: GPLV3 license\r\n* Documentation: http://realopenit-bubble.readthedocs.org\r\n\r\nFeatures\r\n--------\r\n\r\n\r\n\r\nTodo\r\n---\r\nToo much\r\n\r\n\r\n\r\nInspiration\r\n------------\r\n\r\nFor a finite-size system to persist in time (to live), it must evolve in such a\r\nway that it provides easier access to the imposed currents that flow through it.\r\nhttp://en.wikipedia.org/wiki/Constructal_law by\r\n\r\n\r\n\r\nContributing\r\n------------\r\nYes, Please:)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
