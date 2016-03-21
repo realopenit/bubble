@@ -12,6 +12,9 @@ script:
   - pip freeze
   - make dist
   - pip install ./dist/bubble-*-py2.py3-none-any.whl
+  - pip install ./demo_client/mydumboclient_site_packages.mydumboclient/dist/bubble_dumbo_client-0.0.1-py2.py3-none-any.whl
+  - pip install ./demo_client/mydummyclient_bubble.clients.mydummyclient/dist/bubble_dummy_client-0.0.1-py2.py3-none-any.whl
+  - pip freeze
   - python --version
   - bubble --version
   - behave
