@@ -1,18 +1,15 @@
 # Config file for automatic testing at travis-ci.org
 language: python
-env:
-  - TOXENV=docs
-  - TOXENV=flake8
-  - TOXENV=py26
-  - TOXENV=py27
-  - TOXENV=py35
-  - TOXENV=pypy
-install:
-  - pip install tox
+python:
+  - "2.6"
+  - "2.7"
+  - "3.5"
   
+# command to install dependencies
+install: "pip install -r travis_requirements.txt"
+
 script:
   - pip freeze
-  - pip install -r travis_requirements.txt
   - make dist
   - pip install ./dist/bubble-*-py2.py3-none-any.whl
   - python --version
