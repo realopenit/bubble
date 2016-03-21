@@ -11,6 +11,8 @@ install: "pip install -r travis_requirements.txt"
 script:
   - cd ./demo_client/mydumboclient_site_packages.mydumboclient/ && make dist && cd ../..
   - cd ./demo_client/mydummyclient_bubble.clients.mydummyclient/ && make dist && cd ../..
+  - make dist
+  - pip install ./dist/bubble-*-py2.py3-none-any.whl
   - python --version
   - bubble --version
   - behave
