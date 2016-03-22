@@ -15,8 +15,6 @@ Bubble
 
 
 
-
-
 Bubble: command line tool, for bubbling information between services
 
 * Free software: GPLV3 license
