@@ -6,7 +6,6 @@ import arrow
 from pprint import pformat
 
 from . import metadata
-from .util.caller import get_caller_line
 
 """bubble information from one to another service,
 with rule based transformations"""
@@ -235,18 +234,7 @@ class Bubble(object):
         self._total_verbose += verbosity
         self._update_stat('___verb_' + verb)
 
-        calling_frame = get_caller_line()
-        if self._bubble_lib_dir:
-            calling_file_path = calling_frame[1].replace(
-                self._bubble_lib_dir + '/', '')
-        else:
-            calling_file_path = calling_frame[1]
-
-        source_method_line = '%s:%s:%d' % (calling_file_path,
-                                           calling_frame[3],
-                                           calling_frame[2]
-                                           )
-        msg_stat_key = source_method_line
+        msg_stat_key = 'no_fast_source_method_line_yet'
 
         self._update_stats(msg=msg,
                            stuff=stuff,
