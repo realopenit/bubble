@@ -11,11 +11,7 @@ package = 'bubble'
 project = 'cli tool to bubble information from one to another service, with rule based transformations'
 
 #version = '2016.02.23'  #date versioning
-<<<<<<< HEAD
 version = "2016.03.31"
-=======
-version = "2016.03.25"
->>>>>>> origin/master
 
 description = 'cli tool to bubble information from one to another service, with rule based transformations ">>>"'
 authors = ['Erdal Yildiz']
