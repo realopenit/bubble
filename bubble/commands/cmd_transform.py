@@ -12,7 +12,7 @@ from ..util.cli_misc import bubble_lod_dump, bubble_lod_load
 from ..util.counter import Counter
 
 
-from ..util.cli_misc import update_stats, show_verbose_statistics, make_uniq_for_step
+from ..util.cli_misc import update_stats, make_uniq_for_step
 
 from ..transformer import Transformer
 
@@ -180,6 +180,5 @@ def cli(ctx, amount, index, stage):
     stats['transformed_stat_transformed_count'] = transformed_count.get_total()
 
     update_stats(ctx, stage, stats)
-    show_verbose_statistics(ctx)
 
     return True

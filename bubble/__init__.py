@@ -6,7 +6,6 @@ import arrow
 from pprint import pformat
 
 from . import metadata
-from .util.caller import get_caller_line
 
 """bubble information from one to another service,
 with rule based transformations"""
@@ -68,8 +67,6 @@ class Bubble(object):
     _total_verbose_bar = 0
     _total_verbose_self = 0
 
-    _update_stats_for_msgs = False
-
     def __init__(self,
                  name='NoName',
                  verbose=0,
@@ -87,7 +84,6 @@ class Bubble(object):
         self._verbose = verbose
         self._verbose_bar = verbose_bar
 
-        self._update_stats_for_msgs = statistics
 
         self._msg_stats['___init_verbose'] = verbose
         self.set_parent(parent)
@@ -98,7 +94,6 @@ class Bubble(object):
         self.say(self.name + ':config',
                  stuff={'verbose': self._verbose,
                         'verbose_bar': self._verbose_bar,
-                        'statistics': self._update_stats_for_msgs,
                         'bubble_lib_dir': self._bubble_lib_dir,
                         'logfile': self._log_file,
                         'parent': self._parent
@@ -185,46 +180,6 @@ class Bubble(object):
         else:
             self._update_stat('___verbose_minus_already_below_one')
 
-    def _update_stats(self, msg='Msg',
-                      stuff=None,
-                      verb='SAY',
-                      verbosity=1,
-                      child_level=0,
-                      child_name='',
-                      msg_stat_key='msg_stat_key_not_set'):
-        if not self._update_stats_for_msgs:
-            return
-
-        if len(msg) > 60:
-            sample = msg[0:30] + '...' + msg[-30:]
-        else:
-            sample = msg
-
-        if msg_stat_key not in self._msg_stats:
-            self._msg_stats[msg_stat_key] = {}
-            self._msg_stats[msg_stat_key]['count'] = 1
-            self._msg_stats[msg_stat_key]['verb'] = verb
-            self._msg_stats[msg_stat_key]['verbosity'] = verbosity
-            self._msg_stats[msg_stat_key][
-                'current_verbose_first'] = self.get_verbose()
-            self._msg_stats[msg_stat_key][
-                'current_verbose_bar_first'] = self.get_verbose_bar()
-            self._msg_stats[msg_stat_key]['first_timestamp'] = arrow.now()
-            self._msg_stats[msg_stat_key]['first_sample'] = sample
-            self._msg_stats[msg_stat_key]['first_stuff'] = stuff is not None
-            self._msg_stats[msg_stat_key]['child_level'] = child_level
-            self._msg_stats[msg_stat_key]['child_name'] = child_name
-        else:
-            self._msg_stats[msg_stat_key]['count'] += 1
-            self._msg_stats[msg_stat_key]['last_timestamp'] = arrow.now()
-            if sample is not self._msg_stats[msg_stat_key]['first_sample']:
-                self._msg_stats[msg_stat_key]['last_sample'] = sample
-            self._msg_stats[msg_stat_key]['last_stuff'] = stuff is not None
-            self._msg_stats[msg_stat_key][
-                'current_verbose_last'] = self.get_verbose()
-            self._msg_stats[msg_stat_key][
-                'current_verbose_bar_last'] = self.get_verbose_bar()
-
     def _msg(self, msg='Msg',
              stuff=None,
              verb='SAY',
@@ -235,26 +190,7 @@ class Bubble(object):
         self._total_verbose += verbosity
         self._update_stat('___verb_' + verb)
 
-        calling_frame = get_caller_line()
-        if self._bubble_lib_dir:
-            calling_file_path = calling_frame[1].replace(
-                self._bubble_lib_dir + '/', '')
-        else:
-            calling_file_path = calling_frame[1]
-
-        source_method_line = '%s:%s:%d' % (calling_file_path,
-                                           calling_frame[3],
-                                           calling_frame[2]
-                                           )
-        msg_stat_key = source_method_line
-
-        self._update_stats(msg=msg,
-                           stuff=stuff,
-                           verb=verb,
-                           verbosity=verbosity,
-                           child_level=child_level,
-                           child_name=child_name,
-                           msg_stat_key=msg_stat_key)
+        msg_stat_key = 'no_fast_source_method_line_yet'
 
         if isinstance(self._parent, Bubble):
             if child_name:
@@ -361,16 +297,7 @@ class Bubble(object):
             self._children.append(child)
             # self.say('added child: '+child.name, verbosity=100)
             self.say('number of children:%d' %
-                     self.get_number_children(), verbosity=100)
-
-    def get_number_children(self):
-        return len(self._children)
-
-    def set_statistics(self, statistics):
-        self._update_stats_for_msgs = statistics
-
-    def get_msg_stats(self):
-        return self._msg_stats
+                     len(self._children), verbosity=100)
 
     def get_total_verbose(self):
         return self._total_verbose
