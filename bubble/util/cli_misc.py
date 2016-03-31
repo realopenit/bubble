@@ -213,30 +213,6 @@ def update_stats(ctx, stage, stats={}):
                 stuff=last_stats, verbosity=100)
     return res
 
-##########################################################################
-def show_verbose_statistics(ctx=None):
-    if not ctx:
-        return
-    if ctx.statistics:
-        ctx.gbc.say('cli.ctx.verbose',
-                    stuff=ctx.get_verbose(),
-                    verbosity=0)
-        ctx.gbc.say('cli.ctx.stats',
-                    stuff=ctx.get_msg_stats(),
-                    verbosity=0)
-        ctx.gbc.say('cli.ctx.total_verbosity',
-                    stuff=ctx.get_total_verbose(),
-                    verbosity=0)
-        ctx.gbc.say('gbc.verbose',
-                    stuff=ctx.gbc.get_verbose(),
-                    verbosity=0)
-        ctx.gbc.say('gbc.stats',
-                    stuff=ctx.gbc.get_msg_stats(),
-                    verbosity=0)
-        ctx.gbc.say('gbc.total_verbosity',
-                    stuff=ctx.gbc.get_total_verbose(),
-                    verbosity=0)
-
 
 ##########################################################################
 def make_uniq_for_step(ctx, ukeys, step, stage, full_data, clean_missing_after_seconds, to_uniq):
