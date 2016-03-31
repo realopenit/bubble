@@ -9,6 +9,7 @@ from ..commands.cmd_pull import cli as pull
 from ..commands.cmd_transform import cli as transform
 from ..commands.cmd_push import cli as push
 
+from ..util.profiling import BUBBLE_PROFILE, show_profile
 
 @click.command('pump', short_help='Pull, Transform, Push.')
 @click.option('--amount', '-a', type=int, default=-1, help='set the amount to pump')
@@ -36,6 +37,10 @@ def cli(ctx, amount, index, stage):
     if res_tra:
         # amount to push can be less (or more)
         res_push = ctx.invoke(push, amount=amount, index=index, stage=stage)
+
+    #print(BUBBLE_PROFILE)
+    #if BUBBLE_PROFILE:
+    show_profile()
 
     if res_pull and res_tra and res_push:
         ctx.obj.say_green('Pumping finsished')

@@ -5,7 +5,6 @@ import click
 
 from ..cli import pass_bubble
 from ..util.examples import all_examples_functions
-from ..util.cli_misc import show_verbose_statistics
 
 @click.command('examples',
                short_help='Show example for doing some task in bubble(experimental)')
@@ -40,6 +39,4 @@ def cli(ctx, name,all):
 
         else:
             click.echo("available example: " + example['name'])
-
-    show_verbose_statistics(ctx)
 

@@ -11,6 +11,7 @@ from . import metadata
 from . import Bubble
 from .util.cfg import get_config
 from .util.cli_misc import utf8_only, file_exists
+from .util.profiling import start_profile
 
 import six
 if six.PY2:
@@ -20,7 +21,6 @@ if six.PY2:
 VERBOSE = 0
 # do not show verbosities above the bar, todo USE magic
 VERBOSE_BAR = 100
-VERBOSE_STATS = False
 
 
 # definitions for configuration files relative to bubble directory
@@ -40,11 +40,10 @@ STEPS = ['pulled', 'uniq_pull', 'uniq_push',
 CONTEXT_SETTINGS = dict(auto_envvar_prefix='BUBBLE')
 
 
-def make_gbc(verbose, verbose_bar, statistics):
+def make_gbc(verbose, verbose_bar):
     general_bubble_ctx = Bubble(name='Bubble(gbc)',
                                 verbose=verbose,
-                                verbose_bar=verbose_bar,
-                                statistics=statistics)
+                                verbose_bar=verbose_bar)
     general_bubble_ctx.say('gbc here', verbosity=99)
     return general_bubble_ctx
 
@@ -84,15 +83,13 @@ class BubbleCli(Bubble):
 
     def __init__(self,
                  home=None, verbose=VERBOSE,
-                 verbose_bar=VERBOSE_BAR,
-                 statistics=VERBOSE_STATS):
-        Bubble.__init__(self, 'BubbleCli', verbose, verbose_bar, statistics)
+                 verbose_bar=VERBOSE_BAR):
+        Bubble.__init__(self, 'BubbleCli', verbose, verbose_bar)
         self.GLOBALS = BUBBLE_CLI_GLOBALS
-
+        self.debug=True
         # for general logging purposes
         self.gbc = make_gbc(verbose=verbose,
-                            verbose_bar=verbose_bar,
-                            statistics=statistics)
+                            verbose_bar=verbose_bar)
 
         self.GLOBALS['gbc'] = self.gbc
 
@@ -110,7 +107,6 @@ class BubbleCli(Bubble):
         self.set_verbose(verbose)
         self.set_verbose_bar(verbose_bar)
 
-        self.statistics = statistics
         self.debug = False
         self.bubble = False
         if home:
@@ -256,20 +252,15 @@ class ComplexCLI(click.MultiCommand):
               type=int,
               default=-1,
               help='sets a bar, only show messages up to the bar')
-@click.option('--vstats',
-              '-s',
+@click.option('--profile',
+              '-p',
+              envvar='BUBBLE_PROFILE',
               is_flag=True,
               default=False,
-              help='collects and shows statistics for messages verbosities')
-@click.option('--logfile',
-              '-l',
-              envvar='BUBBLE_LOG',
-              default='./logs/bubble.log',
-              metavar='PATH',
-              help='Changes the bubble logfile location.')
+              help='Run bubble with profiling.')
 @click.version_option(metadata.version)
 @click.pass_context
-def cli(ctx, bubble_home, config, verbose, barverbose, vstats, logfile):
+def cli(ctx, bubble_home, config, verbose, barverbose, profile):
     """Bubble: command line tool for bubbling information between services
 
     .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.\n
@@ -323,14 +314,16 @@ def cli(ctx, bubble_home, config, verbose, barverbose, vstats, logfile):
         if nagios:
             verbose = 0
 
+    global PROFILING
+    profiling = profile
+    if profile:
+        start_profile()
+
     global VERBOSE
     VERBOSE = verbose
 
     global VERBOSE_BAR
     VERBOSE_BAR = barverbose
-
-    global VERBOSE_STATS
-    VERBOSE_STATS = vstats
 
     if bubble_home != '.':
         bubble_home_abs = os.path.abspath(bubble_home)
@@ -347,8 +340,7 @@ def cli(ctx, bubble_home, config, verbose, barverbose, vstats, logfile):
         os.chdir(bubble_home_abs)
         ctx.obj = BubbleCli(home=bubble_home_abs,
                             verbose=verbose,
-                            verbose_bar=barverbose,
-                            statistics=vstats)
+                            verbose_bar=barverbose)
     else:
         click.echo('Bubble home path does not exist: ' + bubble_home_abs)
         raise click.Abort()

@@ -6,7 +6,7 @@ import click
 from ..cli import pass_bubble
 from ..cli import STAGES
 
-from ..util.cli_misc import load_rule_functions, show_verbose_statistics
+from ..util.cli_misc import load_rule_functions
 
 from ..functions import get_registered_rule_functions
 
@@ -30,5 +30,4 @@ def cli(ctx, stage):
         ctx.say('fun: ' + f, verbosity=1)
     ctx.gbc.say('funs: ', stuff=rule_functions.get_rule_functions(), verbosity=100)
 
-    show_verbose_statistics(ctx)
     return True

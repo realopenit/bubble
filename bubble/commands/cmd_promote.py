@@ -7,7 +7,7 @@ from ..cli import pass_bubble
 
 from ..cli import STAGES
 from ..util.cli_misc import bubble_lod_load
-from ..util.cli_misc import get_pairs, show_verbose_statistics
+from ..util.cli_misc import get_pairs
 from ..util.generators import get_gen_slice
 from ..util.flat_dict import flat, get_flat_path
 from ..util.buts import buts
@@ -155,5 +155,3 @@ def cli(ctx, amount, index, stage, deststage, stepresult, tostep, select, where,
                 data = data.sort(order[:-2], False)
             if olast2 == ':-':
                 data = data.sort(order[:-2], True)
-
-    show_verbose_statistics(ctx)

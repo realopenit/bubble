@@ -7,8 +7,6 @@ from ..cli import pass_bubble
 from ..cli import STAGES
 
 from ..util.store import get_bubble
-from ..util.cli_misc import show_verbose_statistics
-
 from ..transformer import Transformer
 
 
@@ -64,5 +62,4 @@ def cli(ctx, stage):
     else:
         ctx.say('no rules!')
 
-    show_verbose_statistics(ctx)
     return True

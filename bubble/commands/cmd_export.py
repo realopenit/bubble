@@ -11,7 +11,7 @@ import path as opath
 from ..cli import pass_bubble
 from ..cli import STAGES
 from ..cli import STEPS as exportables
-from ..util.cli_misc import get_pairs, show_verbose_statistics
+from ..util.cli_misc import get_pairs
 from ..util.generators import get_gen_slice
 from ..util.cli_misc import bubble_lod_load
 
@@ -196,4 +196,3 @@ def cli(ctx,
         with open(outputfile, 'wb') as f:
             f.write(enc_formatted)
             ctx.say_green('exported: ' + outputfile)
-    show_verbose_statistics(ctx)

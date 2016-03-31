@@ -21,6 +21,7 @@ Contents:
     bubble/index
     version
     modules
+    releasing
     glossary
     refs
 
