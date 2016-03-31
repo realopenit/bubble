@@ -5,7 +5,7 @@ import click
 
 from ..cli import pass_bubble
 from ..cli import STAGES
-from ..util.cli_misc import get_client, update_stats, show_verbose_statistics
+from ..util.cli_misc import get_client, update_stats
 from ..util.generators import get_gen_slice
 from ..util.cli_misc import bubble_lod_dump, bubble_lod_load
 from ..util.counter import Counter
@@ -124,6 +124,5 @@ def cli(ctx,
     stats['pushed_stat_error_count'] = error_count.get_total()
     stats['pushed_stat_total_count'] = total_count.get_total()
     update_stats(ctx, stage, stats)
-    show_verbose_statistics(ctx)
 
     return True
