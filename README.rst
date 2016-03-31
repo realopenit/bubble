@@ -18,9 +18,6 @@ Bubble
   :target: https://www.quantifiedcode.com/app/project/6707b42371b2414393abeca90b27e2ea
     :alt: Quantified Code issues
 
-
-
-
 Bubble: command line tool, for bubbling information between services
 
 * Free software: GPLV3 license
