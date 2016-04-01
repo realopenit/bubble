@@ -4,7 +4,9 @@ python:
   - "2.6"
   - "2.7"
   - "3.5"
-
+  - "pypy"
+  - "pypy3"
+  
 # command to install dependencies
 install: "pip install -r travis_requirements.txt"
 
