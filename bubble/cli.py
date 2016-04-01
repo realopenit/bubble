@@ -280,7 +280,7 @@ def cli(ctx, bubble_home, config, verbose, barverbose, profile):
 
     The only requirement for the service clients is that they have a:\n
     * source sevice: pull method which provides a LOD\n
-    * source sevice: pull method which provides a LOD\n
+    * target sevice: push method which accepts a dict\n
 
 
     A Bubble tries hard not to forget any step that has taken place,
