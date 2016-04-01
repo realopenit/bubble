@@ -5,7 +5,12 @@ python:
   - "2.7"
   - "3.5"
   - "pypy"
-  - "pypy3"
+
+#  - "pypy3", this runs but fails on one feature
+# features/custom_local_client_encoding.feature
+# current versions on travis
+# Python 3.2.5 (b2091e973da6, Oct 19 2014, 18:29:55)
+# [PyPy 2.4.0 with GCC 4.6.3
   
 # command to install dependencies
 install: "pip install -r travis_requirements.txt"
