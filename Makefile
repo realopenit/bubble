@@ -74,9 +74,11 @@ release: clean dist
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
-dist: clean docs
+version:
 	echo `date +%Y.%m.%d` >VERSION.txt
 	sed -i "s/^version =.*/version = \"`date +%Y.%m.%d`\"/" bubble/metadata.py
+
+dist: clean docs
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
