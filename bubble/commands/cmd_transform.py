@@ -62,12 +62,9 @@ def cli(ctx, amount, index, stage):
             if 'TRANSFORM' in STAGE:
                 TRANSFORM = ctx.cfg.CFG[stage].TRANSFORM
             else:
-
-                m = 'There is no transform defined in the configuration,'
-                m += 'will not transform,'
-                m += "when pushing the results of step 'pulled'"
-                m += " will be read instead of 'push'"
-                ctx.say_yellow(m)
+                ctx.say_yellow("""There is no transform defined in the configuration, will not transform,
+when pushing the results of step 'pulled' will be read instead of 'push'
+""")
                 raise click.Abort()
 
         if 'RULES' in TRANSFORM:
