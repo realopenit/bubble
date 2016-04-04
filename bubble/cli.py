@@ -86,7 +86,7 @@ class BubbleCli(Bubble):
                  verbose_bar=VERBOSE_BAR):
         Bubble.__init__(self, 'BubbleCli', verbose, verbose_bar)
         self.GLOBALS = BUBBLE_CLI_GLOBALS
-        self.debug=True
+        self.debug = False
         # for general logging purposes
         self.gbc = make_gbc(verbose=verbose,
                             verbose_bar=verbose_bar)
@@ -269,10 +269,10 @@ def cli(ctx, bubble_home, config, verbose, barverbose, profile):
     (source-service)->pull->(transform)->push->(target-service)\n
     _________________>>>>>>>>>pump>>>>>>>>>>>>>_____________________\n
     bubble can:\n
-    * pull data from a source client\n
+    * pull data from the source client\n
     * transform the data with flexible mapping and filtering rules\n
     * rules can use (custom) rule functions\n
-    * push the result to  source client.\n
+    * push the result to  the target client.\n
 
     A Bubble can process a list of basic python dicts(LOD),
     which are persisted in files or a database,
