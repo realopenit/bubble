@@ -73,8 +73,8 @@ def cli(ctx,
 
     if not transformed:
         ctx.say_yellow("""There is no transform defined in the configuration, will not transform,
-                       'using the results of step 'pulled' instead of 'push'
-                        """)
+using the results of step 'pulled' instead of 'push'
+""")
 
     if not TGT:
         ctx.say_red('There is no TARGET in: ' + stage)

@@ -11,9 +11,12 @@ help:
 	@echo "test - run tests quickly with the default Python"
 	@echo "coverage - check code coverage quickly with the default Python"
 	@echo "docs - generate Sphinx HTML documentation, including API docs"
-	@echo "release - package and upload a release"
-	@echo "release-test - package and upload a release to testpypi"
+	@echo "upload_to_pypi - upload a release"
+	@echo "upload_to_testpypi - upload a release to testpypi"
+	@echo "compile_requirements - pip compile the requirements"
+	@echo "version - upDATE version"
 	@echo "dist - package"
+
 
 clean: clean-build clean-pyc clean-test
 
@@ -96,3 +99,9 @@ upload_to_pypi: clean dist
 	echo "for testing:"
 	echo "pipsi install  bubble --upgrade"
 	echo "pip install  bubble --upgrade"
+
+compile_requirements:
+	pip-compile requirements.in >requirements.txt
+	pip-compile dev_requirements.in >dev_requirements.txt
+	pip-compile requirements.in dev_requirements.in --output-file travis_requirements.txt >travis_requirements.txt
+

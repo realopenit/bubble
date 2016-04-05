@@ -71,19 +71,15 @@ def cli(ctx, amount, index, query, stage):
         if amount > 0:
             if index < 0:
                 index = 0
-            # ctx.say('TODO:click.bar')
-            ctx.say('Progress pulling in')
-            # if query:
-            #    ctx.say('Progress querying:%s'%query)
-            #    src_data_gen = sclient.query(query)
-            # else:
+            pb_label='Pulling %d+%d '% (index,amount)
             src_data_gen = sclient.pull(amount, index)
         else:
             if query:
-                ctx.say('Progress querying:%s' % query)
+                pb_label='Querying:%s' % query
                 src_data_gen = [sclient.query(query)]
                 full_data = False
             else:
+                pb_label='Pulling all'
                 src_data_gen = sclient.pull()
     except Exception as e:
         ctx.say_red('cannot pull from source client: ' + SRC.CLIENT)
@@ -97,12 +93,13 @@ def cli(ctx, amount, index, query, stage):
     # TODO: make default counters
     # counter:#Good Bad Ugly: BUG, counters
 
-    pfr = bubble_lod_dump(ctx=ctx,
+    with click.progressbar(src_data_gen, label=pb_label) as progress_src_data_gen:
+        pfr = bubble_lod_dump(ctx=ctx,
                           step='pulled',
                           stage=stage,
                           full_data=full_data,
                           reset=True,
-                          data_gen=src_data_gen)
+                          data_gen=progress_src_data_gen)
     ctx.say('pulled [%d] objects' % pfr['total'])
 
     # TODO: client get error count?

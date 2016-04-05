@@ -28,6 +28,7 @@ Automated behave test results, link...
     features/export_where
     features/transform_simple_rules
     features/functions
+    features/rules
     features/no_transform
     features/dumbo_installed_site_packages_client
     features/pump_no_transform
