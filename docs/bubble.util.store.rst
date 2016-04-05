@@ -12,13 +12,6 @@ bubble.util.store.convert module
     :undoc-members:
     :show-inheritance:
 
-bubble.util.store.storage_type_bubble module
---------------------------------------------
-
-.. automodule:: bubble.util.store.storage_type_bubble
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 bubble.util.store.storage_type_json module
 ------------------------------------------
