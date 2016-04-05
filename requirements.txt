@@ -4,19 +4,19 @@
 #
 #    pip-compile requirements.in
 #
-alembic==0.8.4            # via dataset
+alembic==0.8.5            # via dataset
 arrow==0.7.0
-click==6.2
+click==6.6
 dataset==0.6.2
-Mako==1.0.3               # via alembic
+Mako==1.0.4               # via alembic
 MarkupSafe==0.23          # via mako
 normality==0.2.4          # via dataset
 path.py==8.1.2
-python-dateutil==2.4.2
-python-editor==0.5        # via alembic
+python-dateutil==2.5.2
+python-editor==1.0        # via alembic
 PyYAML==3.11              # via dataset
 simplejson==3.8.2
 six==1.10.0
-sqlalchemy==1.0.12        # via alembic, dataset
+SQLAlchemy==1.0.12        # via alembic, dataset
 tablib==0.11.2
 wheel==0.29.0

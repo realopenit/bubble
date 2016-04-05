@@ -108,14 +108,6 @@ bubble.util.magic module
     :undoc-members:
     :show-inheritance:
 
-bubble.util.memoize module
---------------------------
-
-.. automodule:: bubble.util.memoize
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 bubble.util.value_path module
 -----------------------------
 

@@ -9,8 +9,6 @@ import six
 import arrow
 
 from . import Bubble
-from .util.memoize import memoize
-
 
 ##########################################################################
 FUN_TYPE = 'system'
@@ -80,7 +78,6 @@ class NoRuleFunction(Bubble):
 
 class RuleFunctions(Bubble):
     _rule_functions = {}
-    _memoize_functions = False
 
     def __init__(self):
         Bubble.__init__(self, name='Rule Functions Manager')
@@ -97,8 +94,7 @@ class RuleFunctions(Bubble):
             return self._rule_functions[sfun]
         else:
             self.add_function(name=sfun,
-                              fun=self.rule_function_not_found(fun),
-                              learn=True)
+                              fun=self.rule_function_not_found(fun))
             self.cry('fun(%s) not found, returning dummy' %
                      (sfun), verbosity=10)
             if sfun in self._rule_functions:
@@ -109,18 +105,15 @@ class RuleFunctions(Bubble):
     def add_custom_function(self,
                             fun=None,
                             name=None,
-                            fun_type="custom",
-                            learn=False):
+                            fun_type="custom"):
         return self.add_function(fun=fun,
                                  name=name,
-                                 fun_type=fun_type,
-                                 learn=learn)
+                                 fun_type=fun_type)
 
     def add_function(self,
                      fun=None,
                      name=None,
-                     fun_type=FUN_TYPE,
-                     learn=False):
+                     fun_type=FUN_TYPE):
         """actually replace function"""
         if not name:
             if six.PY2:
@@ -130,25 +123,12 @@ class RuleFunctions(Bubble):
 
         self.say('adding fun(%s)' % name, verbosity=50)
         self.say('adding fun_type:%s' % fun_type, verbosity=50)
-        # if self.debug:
-        #   print('adding fun,fun_type:%s,%s' % (name,fun_type))
 
         if self.function_exists(name):
             self.cry('overwriting :fun(%s)' % name, verbosity=10)
 
-        if learn or self._memoize_functions:
-            self.say('memoizing,l=' + str(learn) +
-                     ' s._mf=' + str(self._memoize_functions),
-                     verbosity=100)
-
-            @memoize()
-            @wraps(fun)
-            def memoized(*a, **k):
-                return fun(*a, **k)
-            self._rule_functions[name] = RuleFunction(name, memoized, fun_type)
-        else:
-            self.say('added :' + name, verbosity=10)
-            self._rule_functions[name] = RuleFunction(name, fun, fun_type)
+        self.say('added :' + name, verbosity=10)
+        self._rule_functions[name] = RuleFunction(name, fun, fun_type)
         return True
 
     def function_exists(self, fun):
@@ -167,7 +147,6 @@ class RuleFunctions(Bubble):
         dummy function that will gather inputs for easing into
         the possible future implementation
         """
-        # if fun is not None:
         sfun = str(fun)
         self.cry('rule_function_not_found:' + sfun)
 
