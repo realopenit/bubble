@@ -1,7 +1,5 @@
 behave
 PyHamcrest
-# ipython
-httpie
 pip-tools
 flake8
 autoapi
@@ -9,3 +7,5 @@ sphinx-rtd-theme
 sphinxcontrib-ansi
 sphinxcontrib-programoutput
 
+# ipython
+# httpie  #requests
