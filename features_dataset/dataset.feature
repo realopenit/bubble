@@ -44,14 +44,14 @@ Scenario: load mysrclient.py pull and store in dataset default type sqlite
       """
       BUBBLE_IDX|keyA|keyB|keyC.1|keyC.2|keyC.3.keyDinList
       ----------|----|----|------|------|-----------------
-      0         |A_0 |B_0 |c     |66    |D_0              
-      1         |A_1 |B_1 |c     |66    |D_1              
-      2         |A_2 |B_2 |c     |66    |D_2              
-      3         |A_3 |B_3 |c     |66    |D_3              
-      4         |A_4 |B_4 |c     |66    |D_4              
-      5         |A_5 |B_5 |c     |66    |D_5              
-      6         |A_6 |B_6 |c     |66    |D_6              
-      7         |A_7 |B_7 |c     |66    |D_7              
-      8         |A_8 |B_8 |c     |66    |D_8              
+      0         |A_0 |B_0 |c     |66    |D_0
+      1         |A_1 |B_1 |c     |66    |D_1
+      2         |A_2 |B_2 |c     |66    |D_2
+      3         |A_3 |B_3 |c     |66    |D_3
+      4         |A_4 |B_4 |c     |66    |D_4
+      5         |A_5 |B_5 |c     |66    |D_5
+      6         |A_6 |B_6 |c     |66    |D_6
+      7         |A_7 |B_7 |c     |66    |D_7
+      8         |A_8 |B_8 |c     |66    |D_8
       9         |A_9 |B_9 |c     |66    |D_9
       """

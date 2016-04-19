@@ -43,7 +43,7 @@ lint:
 behave:
 	behave
 
-behavepyenvs:
+behavepyenvs: dist
 	bin/behave_pyversions_in_pyenv.sh
 
 test:
