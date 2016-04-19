@@ -4,27 +4,63 @@ Scenario: Given a source service in configuration, add and modify single keys
     When I run "bubble init"
     When I run "bubble config"
         Then the command output should contain "CFG.BUBBLE.STORAGE_TYPE: json"
-    When I run "bubble config -s CFG.BUBBLE.STORAGE_TYPE dataset"
-    When I run "bubble config -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE sqlite"
-    When I run "bubble config -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG config_command"
+    When I run "bubble config -s CFG.BUBBLE.STORAGE_TYPE dataset STRING"
+    When I run "bubble config -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE sqlite STRING"
+    When I run "bubble config -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG config_command STRING"
 
     When I run "bubble config"
         Then the command output should contain " CFG.BUBBLE.STORAGE_TYPE: dataset"
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE: sqlite"
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG: config_command"
 
-    When I run "bubble pull"
-        Then the command output should contain "saved result in dataset[step:stats][stage:DEV]"
-        But note that "the command output should contain \"saved result in [\" for the previous storage type json"
-        And the command returncode is "0"
+Scenario: Given a source service in configuration, add and modify single keys, display types
+    Given a new working directory
+    When I run "bubble init"
+    When I run "bubble config -s CFG.TEST_CONFIG_STRING something STRING"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_True True BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_False False BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_TruE TruE BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_FaLsE FaLsE BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_T T BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_F F BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_YES YES BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_NO NO BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_Y Y BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_N N BOOLEAN"
+    When I run "bubble config -s CFG.TEST_CONFIG_INTEGER_42 42 INTEGER"
+    When I run "bubble config -s CFG.TEST_CONFIG_INTEGER_MINUS42 "-42" INTEGER"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_PI 3.14159265359 FLOAT"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_MINUSPI "-3.14159265359" FLOAT"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_HEAD 123. FLOAT"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_TAIL .123 FLOAT"
+
+    When I run "bubble config -t"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_F: False type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_FaLsE: False type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_False: False type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_N: False type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_NO: False type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_T: True type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_TruE: True type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_True: True type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_Y: True type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_YES: True type: BOOLEAN"
+        Then the command output should contain " CFG.TEST_CONFIG_INTEGER_42: 42 type: INTEGER"
+        Then the command output should contain " CFG.TEST_CONFIG_INTEGER_MINUS42: -42 type: INTEGER"
+        Then the command output should contain " CFG.TEST_CONFIG_STRING: something type: STRING"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_PI: 3.14159265359 type: FLOAT"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_MINUSPI: -3.14159265359 type: FLOAT"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_HEAD: 123.0 type: FLOAT"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_TAIL: 0.123 type: FLOAT"
+
 
 Scenario: Given a configuration, add and modify multiple keys
     Given a new working directory
     And a file named "./config_multiple.sh" with:
             """ set -x
-                bubble config -s CFG.BUBBLE.STORAGE_TYPE dataset                              \
-                              -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE sqlite               \
-                              -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG config_command
+                bubble config -s CFG.BUBBLE.STORAGE_TYPE dataset STRING                              \
+                              -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE sqlite STRING               \
+                              -s CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG config_command STRING
             """
 
     When I run "bubble init"
@@ -37,10 +73,6 @@ Scenario: Given a configuration, add and modify multiple keys
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE: sqlite"
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG: config_command"
 
-    When I run "bubble pull"
-        Then the command output should contain "saved result in dataset[step:stats][stage:DEV]"
-        But note that "the command output should contain \"saved result in [\" for the previous storage type json"
-        And the command returncode is "0"
 
 Scenario: Given a configuration,copy a single src key to a single dest key
     Given a new working directory

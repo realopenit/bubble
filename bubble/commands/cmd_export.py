@@ -42,8 +42,8 @@ from ..util.buts import buts
               help='show the (flattened) available keys first selected dict')
 @click.option('--showvalues', '-v', is_flag=True, default=False,
               help='if showkeys, also show the values')
-@click.option('--showallways', '-d', is_flag=True, default=False,
-              help='show (dump) the keys/values allways')
+@click.option('--showalways', '-d', is_flag=True, default=False,
+              help='show (dump) the keys/values always')
 @click.option('--position', '-p', is_flag=True, default=False,
               help='if position, also append the position (index for item in total list)')
 @pass_bubble
@@ -59,7 +59,7 @@ def cli(ctx,
         outputfile,
         showkeys,
         showvalues,
-        showallways,
+        showalways,
         position):
     """Export from memory to format supported by tablib"""
     if not ctx.bubble:
@@ -136,7 +136,7 @@ def cli(ctx,
             data.append(row)
             # todo: count keys, and show all keys in selection: i,a
             if not_shown and showkeys:
-                if not showallways:
+                if not showalways:
                     not_shown = False
                 ks = list(flitem.keys())
                 ks.sort()

@@ -19,10 +19,11 @@ def cli(ctx, stage, port):
     gbc = ctx.gbc
     WEB = None
     if stage in STAGES:
-        try:
-            WEB = ctx.cfg.CFG[stage].SERVER.WEB
-        except KeyError as exception:
-            gbc.cry('Exception', stuff=exception)
+        STAGE = ctx.cfg.CFG[stage]
+        if 'SERVER'  in STAGE:
+            SERVER=STAGE.SERVER
+            if 'WEB' in SERVER:
+                WEB=SERVER.WEB
 
     if not WEB:
         ctx.say_red('There is no SERVER.WEB in stage:' + stage)

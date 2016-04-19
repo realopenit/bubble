@@ -37,14 +37,20 @@ def cli(ctx, amount, index, query, stage):
     if not ctx.bubble:
         ctx.say_yellow('There is no bubble present, will not pull')
         raise click.Abort()
-
+    STAGE = None
     SRC = None
 
-    if stage in STAGES:
+    if stage in STAGES and stage in ctx.cfg.CFG:
         STAGE = ctx.cfg.CFG[stage]
-        if 'SOURCE' in STAGE:
-            SRC = STAGE.SOURCE
 
+    if not STAGE:
+        ctx.say_red('There is no STAGE in CFG:' + stage)
+        ctx.say_yellow('please check configuration in ' +
+                       ctx.home + '/config/config.yaml')
+        raise click.Abort()
+
+    if 'SOURCE' in STAGE:
+        SRC = STAGE.SOURCE
     if not SRC:
         ctx.say_red('There is no SOURCE in stage:' + stage)
         ctx.say_yellow('please check configuration in ' +
