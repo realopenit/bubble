@@ -13,11 +13,6 @@ Scenario: Given a source service in configuration, add and modify single keys
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE: sqlite"
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG: config_command"
 
-    When I run "bubble pull"
-        Then the command output should contain "saved result in dataset[step:stats][stage:DEV]"
-        But note that "the command output should contain \"saved result in [\" for the previous storage type json"
-        And the command returncode is "0"
-
 Scenario: Given a source service in configuration, add and modify single keys, display types
     Given a new working directory
     When I run "bubble init"
@@ -78,10 +73,6 @@ Scenario: Given a configuration, add and modify multiple keys
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_TYPE: sqlite"
         Then the command output should contain " CFG.BUBBLE.STORAGE_DATASET_ARGS.DS_BUBBLE_TAG: config_command"
 
-    When I run "bubble pull"
-        Then the command output should contain "saved result in dataset[step:stats][stage:DEV]"
-        But note that "the command output should contain \"saved result in [\" for the previous storage type json"
-        And the command returncode is "0"
 
 Scenario: Given a configuration,copy a single src key to a single dest key
     Given a new working directory
