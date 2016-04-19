@@ -18,7 +18,7 @@ exportables = ['pulled', 'uniq_pull', 'uniq_push',
 
 
 @click.command('promote',
-               short_help='Like Export, but promote from step stage to step stage.(experimental)')
+               short_help='Like Export, but promote from step stage to step stage(experimental)')
 @click.option('--amount',
               '-a',
               type=int,
@@ -63,7 +63,7 @@ exportables = ['pulled', 'uniq_pull', 'uniq_push',
               help='if position, also append the position (index for item in total list)')
 @pass_bubble
 def cli(ctx, amount, index, stage, deststage, stepresult, tostep, select, where, order, position):
-    """Promote data from one stage to another:(experimental)
+    """Promote data from one stage to another(experimental)
 
     First collect the correct information with export,
     and promote result by adjusting command to promote and adding missing options.
