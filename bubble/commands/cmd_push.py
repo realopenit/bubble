@@ -59,17 +59,21 @@ def cli(ctx,
     transformed = True
     STAGE = None
 
-    if stage in STAGES:
-        if stage in ctx.cfg.CFG:
-            STAGE = ctx.cfg.CFG[stage]
+    if stage in STAGES and  stage in ctx.cfg.CFG:
+        STAGE = ctx.cfg.CFG[stage]
+    if not STAGE:
+        ctx.say_red('There is no STAGE in CFG:' + stage)
+        ctx.say_yellow('please check configuration in ' +
+                        ctx.home + '/config/config.yaml')
+        raise click.Abort()
 
-        if STAGE and 'TARGET' in STAGE:
-            TGT = STAGE.TARGET
 
-        if "TRANSFORM" in STAGE:
-            transformed = True
-        else:
-            transformed = False
+    if 'TARGET' in STAGE:
+        TGT = STAGE.TARGET
+    if 'TRANSFORM' in STAGE:
+        transformed = True
+    else:
+        transformed = False
 
     if not transformed:
         ctx.say_yellow("""There is no transform defined in the configuration, will not transform,
