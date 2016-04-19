@@ -144,3 +144,10 @@ Scenario: Transform pulled data using custom rules and functions,internal value
         hi    |okidoki
         bubble|None
         """
+Scenario: Given a source service in configuration with only DEV
+    Given a new working directory
+    When I run "bubble init"
+    When I run "bubble pull"
+    When I run "bubble transform -s PROD"
+    Then the command output should contain "There is no STAGE in CFG:PROD"
+    And the command returncode is "1"

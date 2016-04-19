@@ -59,11 +59,9 @@ Scenario: Starting bubble functions
     When I run "bubble functions"
     Then the command output should contain "will not show any transformer functions"
     And  the command returncode is "1"
-Scenario: Starting bubble functions
+Scenario: Starting bubble web
     Given a new working directory
     When I run "bubble web"
     Then the command output should contain "will not listen"
     And  the command returncode is "1"
-
-
 

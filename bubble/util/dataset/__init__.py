@@ -6,7 +6,20 @@
 import arrow
 import os
 import simplejson as json
-import dataset
+
+DATASET_PRESENT=False
+try:
+    import dataset
+    DATASET_PRESENT=True
+except ImportError as e:
+    class dummy_dataset(object):
+         def connect(*args,**kwargs):
+            #print("Bubble:import:there is n dataset present, pip install dataset")
+            msg="\nImportError, there is no dataset present, please use:\"pip install dataset\""
+            import click
+            click.echo(msg)
+            raise click.Abort()
+    dataset=dummy_dataset()
 
 from ..counter import Counter
 from ..generators import make_stamping_gen

@@ -7,15 +7,28 @@ from ..cli import pass_bubble
 from ..util.cfg import put_config, BubbleDoct
 from ..util.flat_dict import flat, unflat, get_flat_path
 
+TRUES=['true','t','1','yes','y']
+FALSES=['false','f','0','no','n']
+TYPES={"<type 'str'>":'STRING',
+       "<class 'str'>":'STRING',
+       "<type 'bool'>":'BOOLEAN',
+       "<class 'bool'>":'BOOLEAN',
+       "<type 'int'>":'INTEGER',
+       "<class 'int'>":'INTEGER',
+       "<type 'float'>":'FLOAT',
+       "<class 'float'>":'FLOAT'
+      }
+ALLOWED_TYPES=['STRING','BOOLEAN','INTEGER','FLOAT']
 
 @click.command('config',
                short_help='show or set the configuration')
 @click.option('--setkv',
               '-s',
-              nargs=2,
+              nargs=3,
               multiple=True,
-              metavar='KEY VALUE',
-              help='Sets  a config key/value pair.')
+              metavar='KEY VALUE TYPE',
+              help='Sets  a config key/value pair with a type for the value.Type can be one of:'+
+                   ','.join(ALLOWED_TYPES))
 @click.option('--copyk',
               '-c',
               nargs=2,
@@ -28,8 +41,14 @@ from ..util.flat_dict import flat, unflat, get_flat_path
               multiple=False,
               metavar='KEY',
               help='Deletes  a config key, or key.* "branch"')
+@click.option('--showtype',
+              '-t',
+              is_flag=True,
+              default=False,
+              help='if showtype, also show the type of the configaration item')
+
 @pass_bubble
-def cli(ctx, setkv, copyk, delk):
+def cli(ctx, setkv, copyk, delk,showtype):
     """Show or change the configuration"""
 
     if not ctx.bubble:
@@ -68,13 +87,40 @@ def cli(ctx, setkv, copyk, delk):
     if not setkv and not copyk and not delk:
         ctx.say('current configuration')
         for k, v in new_cfg_no_meta.items():
-            ctx.say(' '+k+': '+str(v))
+            tstr=''
+            if showtype:
+                tstr=' type: '+TYPES[str(type(v))]
+            ctx.say(' '+k+': '+str(v)+tstr)
 
     modified = 0
     if setkv:
-        for key, value in setkv:
-            new_cfg[str(key)] = str(value)
-            modified += 1
+        for key, value,vtype in setkv:
+            ctx.say('setting k:%s,v:%s,t:%s'%(key,value,vtype))
+            vtval='VALUE_NOT_SET'
+            try:
+                if vtype=="STRING":
+                    vtval=str(value)
+                if vtype=="INTEGER":
+                    vtval=int(value)
+                if vtype=="FLOAT":
+                    vtval=float(value)
+                if vtype=="BOOLEAN":
+                    if value.lower() in TRUES:
+                        vtval=True
+                    if value.lower() in FALSES:
+                        vtval=False
+                    if vtval not in [True,False]:
+                        ctx.cry("boolean value must be one of (case insensitive):",
+                                stuff={'True':TRUES,'False':FALSES})
+                        raise TypeError()
+            except Exception as e:
+                ctx.cry('cannot set k:%s,v:%s,t:%s:'%(key,value,vtype))
+                raise e
+            if vtval != 'VALUE_NOT_SET':
+                new_cfg[str(key)] = vtval
+                modified += 1
+            else:
+                ctx.cry('cannot set k:%s,v:%s,t:%s:typed value is not set yet'%(key,value,vtype))
     if copyk:
         for srckey, destkey in copyk:
             if srckey.endswith('.*'):
