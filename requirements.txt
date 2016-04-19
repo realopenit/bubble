@@ -8,8 +8,8 @@ arrow==0.7.0
 click==6.6
 path.py==8.1.2
 python-dateutil==2.5.2    # via arrow
+PyYAML==3.11
 simplejson==3.8.2
 six==1.10.0
-structlog==16.0.0
 tablib==0.11.2
 wheel==0.29.0
