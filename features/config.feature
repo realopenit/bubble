@@ -34,6 +34,11 @@ Scenario: Given a source service in configuration, add and modify single keys, d
     When I run "bubble config -s CFG.TEST_CONFIG_BOOLEAN_N N BOOLEAN"
     When I run "bubble config -s CFG.TEST_CONFIG_INTEGER_42 42 INTEGER"
     When I run "bubble config -s CFG.TEST_CONFIG_INTEGER_MINUS42 "-42" INTEGER"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_PI 3.14159265359 FLOAT"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_MINUSPI "-3.14159265359" FLOAT"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_HEAD 123. FLOAT"
+    When I run "bubble config -s CFG.TEST_CONFIG_FLOAT_TAIL .123 FLOAT"
+
     When I run "bubble config -t"
         Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_F: False type: BOOLEAN"
         Then the command output should contain " CFG.TEST_CONFIG_BOOLEAN_FaLsE: False type: BOOLEAN"
@@ -48,6 +53,10 @@ Scenario: Given a source service in configuration, add and modify single keys, d
         Then the command output should contain " CFG.TEST_CONFIG_INTEGER_42: 42 type: INTEGER"
         Then the command output should contain " CFG.TEST_CONFIG_INTEGER_MINUS42: -42 type: INTEGER"
         Then the command output should contain " CFG.TEST_CONFIG_STRING: something type: STRING"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_PI: 3.14159265359 type: FLOAT"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_MINUSPI: -3.14159265359 type: FLOAT"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_HEAD: 123.0 type: FLOAT"
+        Then the command output should contain " CFG.TEST_CONFIG_FLOAT_TAIL: 0.123 type: FLOAT"
 
 
 Scenario: Given a configuration, add and modify multiple keys

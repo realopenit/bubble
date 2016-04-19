@@ -9,10 +9,12 @@ from ..util.flat_dict import flat, unflat, get_flat_path
 
 TRUES=['true','t','1','yes','y']
 FALSES=['false','f','0','no','n']
-TYPES={"<type 'str'>":"STRING",
-       "<type 'bool'>":"BOOLEAN",
-       "<type 'int'>":"INTEGER"
+TYPES={"<type 'str'>":'STRING',
+       "<type 'bool'>":'BOOLEAN',
+       "<type 'int'>":'INTEGER',
+       "<type 'float'>":'FLOAT'
       }
+ALLOWED_TYPES=['STRING','BOOLEAN','INTEGER','FLOAT']
 
 @click.command('config',
                short_help='show or set the configuration')
@@ -21,7 +23,8 @@ TYPES={"<type 'str'>":"STRING",
               nargs=3,
               multiple=True,
               metavar='KEY VALUE TYPE',
-              help='Sets  a config key/value pair with a type for the value.Type can be one of:STRING,BOOLEAN,INTEGER')
+              help='Sets  a config key/value pair with a type for the value.Type can be one of:'+
+                   ','.join(ALLOWED_TYPES))
 @click.option('--copyk',
               '-c',
               nargs=2,
@@ -95,6 +98,8 @@ def cli(ctx, setkv, copyk, delk,showtype):
                     vtval=str(value)
                 if vtype=="INTEGER":
                     vtval=int(value)
+                if vtype=="FLOAT":
+                    vtval=float(value)
                 if vtype=="BOOLEAN":
                     if value.lower() in TRUES:
                         vtval=True
