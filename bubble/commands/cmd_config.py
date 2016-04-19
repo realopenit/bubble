@@ -10,9 +10,13 @@ from ..util.flat_dict import flat, unflat, get_flat_path
 TRUES=['true','t','1','yes','y']
 FALSES=['false','f','0','no','n']
 TYPES={"<type 'str'>":'STRING',
+       "<class 'str'>":'STRING',
        "<type 'bool'>":'BOOLEAN',
+       "<class 'bool'>":'BOOLEAN',
        "<type 'int'>":'INTEGER',
-       "<type 'float'>":'FLOAT'
+       "<class 'int'>":'INTEGER',
+       "<type 'float'>":'FLOAT',
+       "<class 'float'>":'FLOAT'
       }
 ALLOWED_TYPES=['STRING','BOOLEAN','INTEGER','FLOAT']
 
