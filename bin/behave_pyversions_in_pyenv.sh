@@ -2,10 +2,8 @@ set -x
 
 
 make dist
-
 #make backup for current pyenv version
 mv  .python-version .python-version.BEAST
-
 
 #for env in bu269 bu279 bu2710 bu350
 for env in 2.6.9 2.7.9 2.7.10 pypy-portable-4.0.1 2.7.11 3.5.0 3.5.1
@@ -28,11 +26,12 @@ do
    #pip install -e .
    pip install -r dev_requirements.txt
    #behave --format=progress --stop
+   python --version && bubble --version
    time behave --format=progress
    #behave --stop
    #pip install -e .
    #pip list
 done
 
-#put backup backup
+#put back backup
 mv  .python-version.BEAST .python-version
