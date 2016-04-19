@@ -235,13 +235,13 @@ class ComplexCLI(click.MultiCommand):
               envvar='BUBBLE_HOME',
               default='.',
               metavar='PATH',
-              help='Changes the bubble location.')
+              help='sets bubble home location.')
 @click.option('--config',
               '-c',
               nargs=2,
               multiple=True,
               metavar='KEY VALUE',
-              help='Overrides a config key/value pair.')
+              help='overrides a config key/value pair.')
 @click.option('--verbose',
               '-v',
               type=int,
@@ -257,7 +257,7 @@ class ComplexCLI(click.MultiCommand):
               envvar='BUBBLE_PROFILE',
               is_flag=True,
               default=False,
-              help='Run bubble with profiling.')
+              help='run bubble with profiling.')
 @click.version_option(metadata.version)
 @click.pass_context
 def cli(ctx, bubble_home, config, verbose, barverbose, profile):
@@ -272,7 +272,7 @@ def cli(ctx, bubble_home, config, verbose, barverbose, profile):
     * pull data from the source client\n
     * transform the data with flexible mapping and filtering rules\n
     * rules can use (custom) rule functions\n
-    * push the result to  the target client.\n
+    * push the result to  the target client\n
 
     A Bubble can process a list of basic python dicts(LOD),
     which are persisted in files or a database,
@@ -291,6 +291,9 @@ def cli(ctx, bubble_home, config, verbose, barverbose, profile):
 
     Commands marked with (experimental) might work,
     but have not fully "behave" tested yet.
+
+    For help on a specific command you can use:
+        bubble <cmd> --help
 
     Create a bubble, make the information flow and start bubbling.\n
     .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.\n
