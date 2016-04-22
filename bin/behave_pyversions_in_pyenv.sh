@@ -1,11 +1,10 @@
 set -x
-
-
+pip install wheel
 make dist
+
 #make backup for current pyenv version
 mv  .python-version .python-version.BEAST
 
-#for env in bu269 bu279 bu2710 bu350
 for env in 2.6.9 2.7.9 2.7.10 pypy-portable-4.0.1 2.7.11 3.5.0 3.5.1
 do
    #pyenv install env   # this is only needed on creation
@@ -16,22 +15,12 @@ do
    echo running in env: $env
    echo running in env:name: $pname
    pyenv local $pname
-   python --version
-   pip install wheel
-   # make dist
    pip list
-   #pip uninstall bubble -y
    pip install ./dist/bubble-*-py2.py3-none-any.whl
-   #pip list
-   #pip install -e .
    pip install -r dev_requirements.txt
-   #behave --format=progress --stop
-   python --version && bubble --version
+   python --version && behave --version && bubble --version
    time behave --format=progress
-   #behave --stop
-   #pip install -e .
-   #pip list
 done
 
-#put back backup
+#restore backup for current pyenv version
 mv  .python-version.BEAST .python-version
