@@ -300,7 +300,7 @@ def bubble_lod_dump(ctx, step, stage, full_data, reset, data_gen):
                        full_data=full_data,
                        reset=reset)
         ctx.say_green(
-            'saved result in dataset[step:%s][stage:%s]' % (step, stage))
+            "\nsaved result in dataset[step:%s][stage:%s]" % (step, stage))
 
     else:
         storage_file = get_file_name(ctx, path, step, stage, STORAGE_TYPE)
@@ -309,7 +309,7 @@ def bubble_lod_dump(ctx, step, stage, full_data, reset, data_gen):
                        data=data_gen,
                        remove_first=True,
                        full_data=full_data)
-        ctx.say_green('saved result in [%s]' % storage_file)
+        ctx.say_green("\nsaved result in [%s]" % storage_file)
     if 'total' not in pfr:
         pfr['total'] = 'Unknown total'
         pfr['total'] = -1
