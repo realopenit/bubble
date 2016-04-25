@@ -15,7 +15,7 @@ BUBBLE_PROFILE=False
 
 def start_profile(*argv):
     # https://docs.python.org/3.4/library/profile.html#module-cProfile
-    print("start_profile")
+    print('BUBBLE_PROFILE:start_profile')
     global BUBBLE_PROFILE
     BUBBLE_PROFILE = Profile()
     BUBBLE_PROFILE.enable()
