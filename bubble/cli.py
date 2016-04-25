@@ -194,7 +194,7 @@ class BubbleCli(Bubble):
                                                 self.home,
                                                 self.birth)
     def __exit__(self, exit_type=None, value=None, traceback=None):
-        self.say('exit',stuff=BUBBLE_CLI_GLOBALS)
+        self.say('exit',stuff=BUBBLE_CLI_GLOBALS,verbosity=111)
         if BUBBLE_CLI_GLOBALS['profiling']:
             write_profile()
 
