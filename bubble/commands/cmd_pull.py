@@ -58,6 +58,13 @@ def cli(ctx, amount, index, query, stage):
     gbc = ctx.GLOBALS['gbc']
     src_client = get_client(gbc, SRC.CLIENT, ctx.home)
 
+    # TODO: client get error count?
+    # make default counters
+    # client.pull(amount,index,counters)
+    # counter:#Good Bad Ugly: BUG, counters
+    # for this the client must be able to keep stats, or update stats in the pull loop.
+    # bug.counters
+
     try:
         sclient = src_client.BubbleClient(cfg=SRC)
         sclient.set_parent(gbc)
@@ -93,21 +100,10 @@ def cli(ctx, amount, index, query, stage):
     click.echo()
 
     # TODO: these actually need to be counted someway.
+    # in client,
+    # in storage,
+    # where else?
     error_count = 0
-    # client.get_error_count?
-    # client.pull(amount,index,counters)
-    # TODO: make default counters
-    # counter:#Good Bad Ugly: BUG, counters
-
-    #🗭   RIGHT THOUGHT BUBBLE
-    #http://www.utf8-chartable.de/unicode-utf8-table.pl?start=128256
-    # ◐   CIRCLE WITH LEFT HALF BLACK
-    # ◑   CIRCLE WITH RIGHT HALF BLACK
-    # ◒   CIRCLE WITH LOWER HALF BLACK
-    # ◓   CIRCLE WITH UPPER HALF BLACK
-    # ◔   CIRCLE WITH UPPER RIGHT QUADRANT BLACK
-    # http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&number=1024
-
 
     with click.progressbar(src_data_gen,
                            label=pb_label,
@@ -123,14 +119,10 @@ def cli(ctx, amount, index, query, stage):
                           data_gen=progress_src_data_gen)
     ctx.say('pulled [%d] objects' % pfr['total'])
 
-    # TODO: client get error count?
+
     stats = {}
     stats['pulled_stat_error_count'] = error_count
     stats['pulled_stat_total_count'] = pfr['total']
     update_stats(ctx, stage, stats)
-
-    #ifrom IPython.terminal.embed import InteractiveShellEmbed
-    #ipshell = InteractiveShellEmbed()
-    #ipshell()
 
     return True
