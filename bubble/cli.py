@@ -31,7 +31,7 @@ CONFIG_YAML = 'config/config.yaml'
 STAGES = ['PROD', 'ACC', 'TEST', 'DEV', 'MOCK']
 
 # also dataset, but that's another kind of 'storage'
-STORAGE_TYPES = ['bubble', 'json']
+STORAGE_TYPES = ['json','jsonl']
 
 STEPS = ['pulled', 'uniq_pull', 'uniq_push',
          'push', 'pushed', 'store', 'stats']
@@ -317,8 +317,7 @@ def cli(ctx, bubble_home, config, verbose, barverbose, profile):
         if nagios:
             verbose = 0
 
-    global PROFILING
-    profiling = profile
+    BUBBLE_CLI_GLOBALS['profiling'] = profile
     if profile:
         start_profile()
 
