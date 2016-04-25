@@ -130,38 +130,23 @@ class BubbleClient(Bubble):
     def __init__(self,cfg={}):
         self.CFG=cfg
         self.client=MyFancyHelloPuller()
-    def pull(self, *a, **k):
-        self.say('pulling:',stuff={'a':a,
-                                   'k':k})
-        index=0
-        amount=0
-        if 'amount' in k:
-            amount=k['amount']
-        if 'index' in k:
-            index=k['index']
 
-        if amount > 0:
-            r = range(index, index + amount)
-            amount_str = '(' + str(index) + '+' + str(amount) + ')'
-        else:
-            r = range(42+1)
-            amount_str = '(all)'
-
-        res = []
-        for i in r:
+class BubbleClient(Bubble):
+    def __init__(self,cfg={}):
+        self.CFG=cfg
+        self.client=MyFancyHelloPuller()
+    def pull(self, amount=42+1, index=0):
+        self.say('BC: %d,%d'%(amount,index))
+        for i in range(amount):
            hello_pull=self.client.say_hello('Pulling in Hello:' + str(i));
-           res.append({'in': hello_pull})
-        return res
+           yield {'in': hello_pull}
+
 
 if __name__ == '__main__':
     from bubble.util.cfg import get_config
-    import importlib
     BCFG = get_config()
     HELLO = BCFG.CFG.DEV.SOURCE
-
-    # print( HELLO, ' in ', HELLO.dotdot().name())
     puller = BubbleClient(HELLO)
-
     print(puller)
     print(puller.pull())
 
@@ -186,13 +171,9 @@ class BubbleClient(Bubble):
 
 if __name__ == '__main__':
     from bubble.util.cfg import get_config
-    import importlib
     BCFG = get_config()
     GOODBYE = BCFG.CFG.DEV.TARGET
-
-    # print(HELLO, ' in ', HELLO.dotdot().name())
     pusher = BubbleClient(GOODBYE)
-
     print(pusher)
     print(pusher.push())
 
