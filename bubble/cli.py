@@ -11,7 +11,7 @@ from . import metadata
 from . import Bubble
 from .util.cfg import get_config
 from .util.cli_misc import utf8_only, file_exists
-from .util.profiling import start_profile
+from .util.profiling import start_profile, write_profile
 
 import six
 if six.PY2:
@@ -193,6 +193,11 @@ class BubbleCli(Bubble):
         return '<BubbleCli %s@%s since: %s>' % (self.name,
                                                 self.home,
                                                 self.birth)
+    def __exit__(self, exit_type=None, value=None, traceback=None):
+        self.say('exit',stuff=BUBBLE_CLI_GLOBALS)
+        if BUBBLE_CLI_GLOBALS['profiling']:
+            write_profile()
+
 
 
 pass_bubble = click.make_pass_decorator(BubbleCli, ensure=True)
