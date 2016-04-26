@@ -11,7 +11,7 @@ from . import metadata
 from . import Bubble
 from .util.cfg import get_config
 from .util.cli_misc import utf8_only, file_exists
-from .util.profiling import start_profile
+from .util.profiling import start_profile, write_profile
 
 import six
 if six.PY2:
@@ -31,7 +31,7 @@ CONFIG_YAML = 'config/config.yaml'
 STAGES = ['PROD', 'ACC', 'TEST', 'DEV', 'MOCK']
 
 # also dataset, but that's another kind of 'storage'
-STORAGE_TYPES = ['bubble', 'json']
+STORAGE_TYPES = ['json','jsonl']
 
 STEPS = ['pulled', 'uniq_pull', 'uniq_push',
          'push', 'pushed', 'store', 'stats']
@@ -193,6 +193,11 @@ class BubbleCli(Bubble):
         return '<BubbleCli %s@%s since: %s>' % (self.name,
                                                 self.home,
                                                 self.birth)
+    def __exit__(self, exit_type=None, value=None, traceback=None):
+        self.say('exit',stuff=BUBBLE_CLI_GLOBALS,verbosity=111)
+        if BUBBLE_CLI_GLOBALS['profiling']:
+            write_profile()
+
 
 
 pass_bubble = click.make_pass_decorator(BubbleCli, ensure=True)
@@ -317,8 +322,7 @@ def cli(ctx, bubble_home, config, verbose, barverbose, profile):
         if nagios:
             verbose = 0
 
-    global PROFILING
-    profiling = profile
+    BUBBLE_CLI_GLOBALS['profiling'] = profile
     if profile:
         start_profile()
 
