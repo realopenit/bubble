@@ -8,7 +8,6 @@ from ..cli import STAGES
 from ..util.cli_misc import get_client, update_stats
 from ..util.cli_misc import bubble_lod_dump
 
-
 @click.command('pull',
                short_help='Pull data from Source Service Client')
 @click.option('--amount',
@@ -59,6 +58,13 @@ def cli(ctx, amount, index, query, stage):
     gbc = ctx.GLOBALS['gbc']
     src_client = get_client(gbc, SRC.CLIENT, ctx.home)
 
+    # TODO: client get error count?
+    # make default counters
+    # client.pull(amount,index,counters)
+    # counter:#Good Bad Ugly: BUG, counters
+    # for this the client must be able to keep stats, or update stats in the pull loop.
+    # bug.counters
+
     try:
         sclient = src_client.BubbleClient(cfg=SRC)
         sclient.set_parent(gbc)
@@ -91,15 +97,20 @@ def cli(ctx, amount, index, query, stage):
         ctx.say_red('cannot pull from source client: ' + SRC.CLIENT)
         ctx.say_red(str(e))
         raise click.Abort('cannot pull')
+    click.echo()
 
     # TODO: these actually need to be counted someway.
+    # in client,
+    # in storage,
+    # where else?
     error_count = 0
-    # client.get_error_count?
-    # client.pull(amount,index,counters)
-    # TODO: make default counters
-    # counter:#Good Bad Ugly: BUG, counters
 
-    with click.progressbar(src_data_gen, label=pb_label) as progress_src_data_gen:
+    with click.progressbar(src_data_gen,
+                           label=pb_label,
+                           show_pos=True,
+                           length=amount,
+                           show_eta=True,
+                           fill_char='◐') as progress_src_data_gen:
         pfr = bubble_lod_dump(ctx=ctx,
                           step='pulled',
                           stage=stage,
@@ -108,7 +119,7 @@ def cli(ctx, amount, index, query, stage):
                           data_gen=progress_src_data_gen)
     ctx.say('pulled [%d] objects' % pfr['total'])
 
-    # TODO: client get error count?
+
     stats = {}
     stats['pulled_stat_error_count'] = error_count
     stats['pulled_stat_total_count'] = pfr['total']

@@ -20,12 +20,19 @@ def load_storage_type_class(ctx, storage_type):
                 storage_type, verbosity=10)
     if storage_type == '.json':
         return load_storage_type_class_json(ctx)
+    if storage_type == '.jsonl':
+        return load_storage_type_class_jsonl(ctx)
 
 def load_storage_type_class_json(ctx):
     from .storage_type_json import JsonKV as STOREM
     ctx.gbc.say('storage module loaded', stuff=STOREM, verbosity=10)
     return STOREM
 
+
+def load_storage_type_class_jsonl(ctx):
+    from .storage_type_jsonl import JsonLinesKV as STOREM
+    ctx.gbc.say('storage module loaded', stuff=STOREM, verbosity=10)
+    return STOREM
 
 def get_file_name(ctx, path, step, stage, stype):
     ctx.gbc.say('get_file_name:', stuff=(path, step, stage, stype))
