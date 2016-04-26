@@ -7,16 +7,11 @@ from bubble.util.inside_try import inside_try
 
 # TODO move to configuration, options
 CFG_UTIL_CFG_DEBUG = False
-# CFG_UTIL_CFG_DEBUG = True
 
 
 class BubbleDoct(dict):
-
     def __init__(self, org_dict, d=0, p=None, k=None):
         self.__dict__ = self
-        self._doct_level = d
-        # self._doct_parent=p
-        self._doct_as_key = k
         for item in org_dict.items():
             key = item[0]
             value = item[1]
@@ -25,21 +20,6 @@ class BubbleDoct(dict):
                 value = BubbleDoct(value, d + 1, self, key)
             if key != '_doct_parent':
                 self.__setitem__(key, value)
-
-    def name(self):
-        self.say('name:' + self._doct_as_key)
-        return self._doct_as_key
-
-    # TODO: make default return is None,
-    # something like this,this fails due to recursion...
-    # def __getitem__(self, key):
-    #    self.say('get item:' + key, verbosity=100)
-    #    try:
-    #        if dict.__contains__(self, key):
-    #            self.__dict__[key]
-    #    except:
-    #        self.say('get item:no such item:' + key, verbosity=100)
-    #        return None
 
     def __setitem__(self, key, value):
         self.say('set item:' + key, stuff=value, verbosity=100)
@@ -55,7 +35,7 @@ class BubbleDoct(dict):
             print('BubbleDoct', msg, stuff, verbosity)
 
     def export_dict(self):
-        self.say('exporting:self:' + str(self._doct_level),
+        self.say('exporting:self:',
                  stuff=self, verbosity=100)
         export = {}
         for (k, v) in self.items():

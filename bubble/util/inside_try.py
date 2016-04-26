@@ -7,7 +7,6 @@ import inspect
 from functools import wraps
 
 from .. import Bubble
-from .caller import get_caller_line
 
 """
 TODO: make a triage:
@@ -122,8 +121,7 @@ def inside_try(func, options={}):
             return {'error': str(excpt),
                     'silenced': name,
                     'args': args,
-                    'kwargs': kwargs,
-                    'caller': get_caller_line()}
+                    'kwargs': kwargs}
     return silenceit
 
 if __name__ == '__main__':

@@ -16,6 +16,7 @@ help:
 	@echo "compile_requirements - pip compile the requirements"
 	@echo "version - upDATE version"
 	@echo "dist - package"
+	@echo "compile_requirements - pip compile  *requirement.txt files from the *.in files"
 
 
 clean: clean-build clean-pyc clean-test
@@ -103,5 +104,6 @@ upload_to_pypi: clean dist
 compile_requirements:
 	pip-compile requirements.in >requirements.txt
 	pip-compile dev_requirements.in >dev_requirements.txt
-	pip-compile requirements.in dev_requirements.in --output-file travis_requirements.txt >travis_requirements.txt
+	pip-compile requirements.in dev_requirements.in --output-file travis_requirements.txt
+	pip-compile requirements.in optional_requirements.txt --output-file requirements_plus_dataset.txt
 
