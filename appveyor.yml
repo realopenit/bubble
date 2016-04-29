@@ -44,6 +44,7 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
   # Build data files
   - "pip install -r travis_requirements.txt"
+  - "pip install -e ."
   # need to replace symlinks with the actual files
   - del features\steps /Q
   - md features\steps 
@@ -53,6 +54,11 @@ install:
   - pwd
   # what do wo have here?
   - tree
+  - "python --version"
+  - "pip --version"
+  - "behave --version"
+  - "bubble --version"
+  
   
 build: false  # Not a C# project, build stuff at the test step instead.
 
