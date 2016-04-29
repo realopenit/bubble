@@ -44,9 +44,14 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
   # Build data files
   - "pip install -r travis_requirements.txt"
-  # need to replace symlinks
-  - copy _features_base\steps features\steps /Y
+  # need to replace symlinks with the actual files
+  - del features\steps /Y
+  - xcopy _features_base\steps features\steps /O /X /E /H /K
   - copy _features_base\environment.py features\environment.py /Y
+  # where are we?
+  - pwd
+  # what do wo have here?
+  - tree
   
 build: false  # Not a C# project, build stuff at the test step instead.
 
