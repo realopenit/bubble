@@ -177,7 +177,7 @@ class BubbleCli(Bubble):
             click.secho(msg, fg=fgc)
             if stuff:
                 click.echo('  stuff:')
-                click.secho(ppprint.pformat(stuff), fg=fgc)
+                click.secho(pprint.pformat(stuff), fg=fgc)
 
     # shortcuts for stoplight colors
     def say_green(self, msg, verbosity=0, stuff=None):
