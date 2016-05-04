@@ -94,7 +94,7 @@ upload_to_testpypi: clean dist
 
 
 
-upload_to_pypi: clean dist
+upload_to_pypi:
 	twine upload dist/*
 	echo "please checkout https://pypi.python.org/pypi/bubble/"
 	echo "for testing:"
