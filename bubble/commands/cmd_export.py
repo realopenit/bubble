@@ -114,7 +114,11 @@ def cli(ctx,
                 # TODO: negative selects:
                 # k:BUBBLE_NO_KEY,k:BUBBLE_NO_VAL,k:BUBBLE_NO_KEY_OR_NO_VAL
 
-                if not wp['val'] in str(flitem[wp['key']]):
+                wcheck_key=True
+                if wp['key'] not in flitem:
+                    row_ok = False
+                    wcheck_key=False
+                if wcheck_key and wp['val'] not in str(flitem[wp['key']]):
                     row_ok = False
             if not row_ok:
                 continue
