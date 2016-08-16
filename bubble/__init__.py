@@ -5,6 +5,16 @@ import os
 import sys
 import arrow
 
+#orderdict needed for structlog
+sys_version_str='.'.join((str(s) for s in sys.version_info[0:3]))
+if sys_version_str=='2.6.9':
+    import collections
+    from ordereddict import OrderedDict
+    collections.OrderedDict=OrderedDict
+else:
+    from collections import OrderedDict
+
+
 BUBBLE_START_ARROW=arrow.now()
 
 from structlog import get_logger

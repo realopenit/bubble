@@ -23,8 +23,15 @@ CODE_DIRECTORY = 'bubble'
 metadata = imp.load_source(
     'metadata', os.path.join(CODE_DIRECTORY, 'metadata.py'))
 
-if sys.version_info[0] == 2:
-    os.system('pip install importlib') #backported from PY3
+#orderdict needed for structlog
+sys_version_str='.'.join((str(s) for s in sys.version_info[0:3]))
+
+if sys_version_str == '2.6.9':
+    #totally depracated but luckily easy_install will still kind of work
+    #https://pypi.python.org/pypi/setuptools
+    os.system('wget https://bootstrap.pypa.io/ez_setup.py -O - | python')
+    os.system('easy_install importlib') #backported from PY3
+    os.system('easy_install ordereddict') #backported from PY3
 
 
 setup(

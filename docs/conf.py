@@ -79,7 +79,6 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.ifconfig",
     "sphinx.ext.extlinks",
-    "sphinxcontrib.programoutput",
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.inheritance_diagram',
@@ -89,6 +88,7 @@ extensions = [
     'sphinx.ext.todo',
     'clickdoctools'
 ]
+    # 'sphinxcontrib.programoutput', #removing 
     # 'sphinx.ext.autodoc',
     # 'sphinx.ext.doctest',
     # 'sphinx.ext.intersphinx',
@@ -104,7 +104,7 @@ if ansiterm_supported:
     #   sphinxcontrib-ansi.html_ansi_stylesheet
     #   html_ansi_stylesheet = "black-on-white.css"
     extensions.append("sphinxcontrib.ansi")
-    programoutput_use_ansi = True
+    programoutput_use_ansi = False
     html_ansi_stylesheet = os.path.join(HERE, "_static/ansi_gherkin.css")
 
 extlinks = {
