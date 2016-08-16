@@ -5,7 +5,7 @@ make dist
 #make backup for current pyenv version
 mv  .python-version .python-version.BEAST
 
-for env in 2.6.9 2.7.9 2.7.10 pypy-portable-4.0.1 2.7.11 3.5.0 3.5.1
+for env in 2.6.9 2.7.9 2.7.10 pypy-portable-4.0.1 2.7.11 3.5.0 3.5.1 3.5.2
 do
    #pyenv install env   # this is only needed on creation
    pname="beast_bu_${env}_test_behave"
