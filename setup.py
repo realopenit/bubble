@@ -27,11 +27,19 @@ metadata = imp.load_source(
 sys_version_str='.'.join((str(s) for s in sys.version_info[0:3]))
 
 if sys_version_str == '2.6.9':
+    #on 2.6.9 ssl will not work so pip will not work also :(
     #totally depracated but luckily easy_install will still kind of work
     #https://pypi.python.org/pypi/setuptools
-    os.system('wget https://bootstrap.pypa.io/ez_setup.py -O - | python')
-    os.system('easy_install importlib') #backported from PY3
-    os.system('easy_install ordereddict') #backported from PY3
+    #os.system('wget https://bootstrap.pypa.io/ez_setup.py -O - | python')
+    #os.system('easy_install importlib') #drop in replacement from 2.7
+    #os.system('easy_install ordereddict') #backported from PY3
+    #in issue 9: easy_install will be mentioned as an alternative
+    
+    print('BUBBLE setup.by: 2.6.9: installing ordereddict and importlib')
+    print('BUBBLE setup.by: 2.6.9: https://github.com/realopenit/bubble/issues/9 for more info')
+    os.system('pip install importlib') #backported from 2.7
+    os.system('pip install ordereddict') #drop in replacement from 2.7
+    
 
 
 setup(
