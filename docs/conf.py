@@ -103,7 +103,7 @@ if ansiterm_supported:
     #   sphinxcontrib-programoutput.programoutput_use_ansi
     #   sphinxcontrib-ansi.html_ansi_stylesheet
     #   html_ansi_stylesheet = "black-on-white.css"
-    extensions.append("sphinxcontrib.ansi")
+    #   extensions.append("sphinxcontrib.ansi")
     programoutput_use_ansi = False
     html_ansi_stylesheet = os.path.join(HERE, "_static/ansi_gherkin.css")
 
