@@ -10,6 +10,7 @@ import simplejson as json
 DATASET_PRESENT=False
 try:
     import dataset
+	import datafreeze
     DATASET_PRESENT=True
 except ImportError as e:
     class dummy_dataset(object):
@@ -117,7 +118,7 @@ def lod_dump(ctx, dataset_args, step, stage, reset, full_data, data, archive=Tru
     ctx.gbc.say('lod_dump:return', stuff=ret, verbosity=100)
     freeze_file = './remember/dataset_freeze_' + step + '_' + stage + '.json'
 
-    dataset.freeze(step_table, format='json', filename=freeze_file)
+    datafreeze.freeze(step_table, format='json', filename=freeze_file)
     if archive:
         zipped = zipit(ctx, freeze_file)
     if zipped and dataset_args['DS_TYPE'] != 'freeze_json':
